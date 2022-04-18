@@ -37,6 +37,7 @@ kern_lm <- lm(MC_Kern ~ 0 + Reduction, data=water_districts)
 kern_lm_tidy <- broom::tidy(kern_lm)
 
 kern_lm
+summary(kern_lm)
 ```
 Marginal Cost for Kern County = 2.286A
 -To calculate demand:
@@ -48,6 +49,32 @@ P= 342.9 - 2.286E
 Marginal Demand for Kern County = 342.9 - 2.286E
 
 ```{r}
+#fitting line for kern 
+kern_baseline <- 150
+kern_data <- tibble(Reduction = 0:150)
+predicted_mc <- predict(kern_lm, newdata=kern_data)
+kern_data <- kern_data %>% mutate(predicted_mc=predicted_mc)
+```
+
+```{r}
+#plotting with predicted line 
+ggplot(water_districts, aes(x=Reduction, y=MC_Kern))+
+  geom_point()+
+  geom_line(data=kern_data, aes(x=Reduction, y=predicted_mc))
+```
+```{r}
+#derive districts demand curve
+#define demand or use as baseline (no policy) - Abatement
+kern_data <- kern_data %>% mutate(water_demand=kern_baseline-Reduction)
+```
+
+```{r}
+#plot the demand 
+ggplot(kern_data, aes(x=water_demand,y=predicted_mc))+
+  geom_line()
+```
+```{r}
+#plot abatement for Mojave county
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Mojave))+
   geom_point()+
   labs(x="Reduction",
@@ -62,9 +89,12 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Mojave))+
 #Find linear regression model for Mojave county 
 mojave_lm <- lm(MC_Mojave ~ 0 + Reduction, data=water_districts)
 mojave_lm_tidy <- broom::tidy(mojave_lm)
+summary(mojave_lm)
 
 mojave_lm
 ```
+
+
 MC(A) for Mojave County = 3.804A
 
 -To calculate demand:
@@ -72,6 +102,9 @@ P= 3.804(A) and A= E0-E, where E0=140 AF
 P= 3.804(E0-E)
 P= 3.804(140-E)
 P= 532.56 - 3.804E
+
+
+
 
 ```{r}
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Antelope))+
@@ -85,6 +118,20 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Antelope))+
   geom_smooth(method="lm")
 ```
 ```{r}
+antelope_lm <- lm(MC_Antelope ~ 0 + Reduction, data=water_districts)
+antelope_lm_tidy <- broom::tidy(antelope_lm)
+
+antelope_lm
+```
+MC(A) for Antelope County = 2.858A
+
+-To calculate demand:
+P= 2.858(A) and A= E0-E, where E0=220 AF
+P= 2.858(E0-E)
+P= 2.858(220-E)
+P= 628.76 - 2.858E
+
+```{r}
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Ventura))+
   geom_point()+
   labs(x="Reduction",
@@ -94,5 +141,29 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Ventura))+
   theme(plot.background = element_rect(fill="azure2")) +
   theme(panel.background = element_rect(fill="aliceblue"))+
   geom_smooth(method="lm")
+```
+
+```{r}
+#using demand data from Kern and Mojave, join into one data set for plotting 
+joined_demand <- bind_rows("Mojave" = mojave_data,
+                           "Kern" = kern_data, .id="Districts")
+
+plot(data = joined_demand, aes(x=water_demand, y=predicted_mc, color=Districs))+
+  geom_line()
+```
+
+
+
+## How to Sovek 3A
+
+```{r}
+#calculate by hand
+#baseline = c(150, 140, 220, 245)
+
+#a single fraction multiplied by these numbers that sum to 755-500 = 225
+
+#deductions <- function(p) {p*150+p*145+p*220+p*245 = 255}
+#p= 0.338
+#solve(deductions)
 ```
 
