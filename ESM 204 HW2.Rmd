@@ -85,6 +85,7 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Mojave))+
   theme(panel.background = element_rect(fill="aliceblue"))+
   geom_smooth(method="lm")
 ```
+
 ```{r}
 #Find linear regression model for Mojave county 
 mojave_lm <- lm(MC_Mojave ~ 0 + Reduction, data=water_districts)
@@ -165,5 +166,22 @@ plot(data = joined_demand, aes(x=water_demand, y=predicted_mc, color=Districs))+
 #deductions <- function(p) {p*150+p*145+p*220+p*245 = 255}
 #p= 0.338
 #solve(deductions)
+```
+```{r}
+#A function to compute the costs for a district's abatement given the abatement number
+quantity_abate = 50
+lm_mod=kern_lm
+#defining function
+calc_cost <- function(lm_mod, quantity_abate){
+  estimated_cost = lm_mod$coefficients[1]*quantity_abate
+  total_cost = 0.5 * quantity_abate * estimated_cost
+  return(total_cost[[1]])
+}
+
+#what is the total cost of kern were to abate 117 unit?
+calc_cost(kern_lm, quantity_abate = 117)
+
+#Q3a Kern abated 
+calc_cost(kern_lm, quanitity_abate = 50.7)
 ```
 
