@@ -9,6 +9,90 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(tidyr)
+library(here)
+library(janitor)
+library(lubridate)
+library(kableExtra)
 
+```
+
+```{r}
+water_districts <- read_csv(here("data", "Water_Districts.csv"))
+```
+```{r}
+#plot abatement for Kern county
+ggplot(data=water_districts, aes(x=Reduction, y=MC_Kern))+
+  geom_point()+
+  labs(x="Reduction",
+        y= "Marginal Cost Of Abatement",
+       title = "Cost of Abatement in Kern County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))+
+  geom_smooth(method="lm")
+```
+```{r}
+#Find linear regression model for Kern county 
+kern_lm <- lm(MC_Kern ~ 0 + Reduction, data=water_districts)
+kern_lm_tidy <- broom::tidy(kern_lm)
+
+kern_lm
+```
+Marginal Cost for Kern County = 2.286A
+-To calculate demand:
+P= 2.286(A) and A= E0-E, where E0=150 AF
+P= 2.286(E0-E)
+P= 2.286(150-E)
+P= 342.9 - 2.286E
+
+Marginal Demand for Kern County = 342.9 - 2.286E
+
+```{r}
+ggplot(data=water_districts, aes(x=Reduction, y=MC_Mojave))+
+  geom_point()+
+  labs(x="Reduction",
+        y= "Marginal Cost Of Abatement",
+       title = "Cost of Abatement in Mojave County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))+
+  geom_smooth(method="lm")
+```
+```{r}
+#Find linear regression model for Mojave county 
+mojave_lm <- lm(MC_Mojave ~ 0 + Reduction, data=water_districts)
+mojave_lm_tidy <- broom::tidy(mojave_lm)
+
+mojave_lm
+```
+MC(A) for Mojave County = 3.804A
+
+-To calculate demand:
+P= 3.804(A) and A= E0-E, where E0=140 AF
+P= 3.804(E0-E)
+P= 3.804(140-E)
+P= 532.56 - 3.804E
+
+```{r}
+ggplot(data=water_districts, aes(x=Reduction, y=MC_Antelope))+
+  geom_point()+
+  labs(x="Reduction",
+        y= "Marginal Cost Of Abatement",
+       title = "Cost of Abatement in Antelope County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))+
+  geom_smooth(method="lm")
+```
+```{r}
+ggplot(data=water_districts, aes(x=Reduction, y=MC_Ventura))+
+  geom_point()+
+  labs(x="Reduction",
+        y= "Marginal Cost Of Abatement",
+       title = "Cost of Abatement in Ventura County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))+
+  geom_smooth(method="lm")
 ```
 
