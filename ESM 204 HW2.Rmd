@@ -1,6 +1,6 @@
 ---
 title: "ESM 204 HW"
-author: "Sam Rozal"
+author: "Sam Rozal and Virginia Pan"
 date: "4/18/2022"
 output: html_document
 ---
@@ -37,13 +37,6 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Kern))+
 kern_lm <- lm(MC_Kern ~ 0 + Reduction, data=water_districts)
 ```
 Marginal Cost for Kern County = 2.286A
--To calculate demand:
-P= 2.286(A) and A= E0-E, where E0=150 AF
-P= 2.286(E0-E)
-P= 2.286(150-E)
-P= 342.9 - 2.286E
-
-Marginal Demand for Kern County = 342.9 - 2.286E
 
 ```{r}
 #fitting line for kern 
@@ -80,15 +73,7 @@ summary(mojave_lm)
 
 mojave_lm
 ```
-
-
 MC(A) for Mojave County = 3.804A
-
--To calculate demand:
-P= 3.804(A) and A= E0-E, where E0=140 AF
-P= 3.804(E0-E)
-P= 3.804(140-E)
-P= 532.56 - 3.804E
 
 ```{r}
 #fitting line for Mojave 
@@ -127,12 +112,6 @@ antelope_lm
 ```
 MC(A) for Antelope County = 2.858A
 
--To calculate demand:
-P= 2.858(A) and A= E0-E, where E0=220 AF
-P= 2.858(E0-E)
-P= 2.858(220-E)
-P= 628.76 - 2.858E
-
 ```{r}
 #fitting line for antelope 
 antelope_baseline <- 220
@@ -165,6 +144,7 @@ ventura_lm_tidy <- broom::tidy(antelope_lm)
 
 ventura_lm
 ```
+MC(A) for Ventura County =1.776A
 
 ```{r}
 #fitting line for Ventura
@@ -190,6 +170,13 @@ Kern County:
 kern_data <- kern_data %>% mutate(water_demand=kern_baseline-Reduction)
 ```
 
+To calculate demand for Kern County:
+P= 2.286(A) and A= E0-E, where E0=150 AF
+P= 2.286(E0-E)
+P= 2.286(150-E)
+P= 342.9 - 2.286E
+
+Marginal Demand for Kern County = 342.9 - 2.286E
 ```{r}
 #plot the demand for Kern County
 ggplot(kern_data, aes(x=water_demand,y=predicted_mc))+
@@ -202,6 +189,11 @@ Mojave County:
 #define demand or use as baseline (no policy) - Abatement
 mojave_data <- mojave_data %>% mutate(water_demand=mojave_baseline-Reduction)
 ```
+-To calculate demand for Mojave County:
+P= 3.804(A) and A= E0-E, where E0=140 AF
+P= 3.804(E0-E)
+P= 3.804(140-E)
+P= 532.56 - 3.804E
 
 ```{r}
 #plot the demand for Mojave County
@@ -216,6 +208,12 @@ Antelope County:
 antelope_data <- antelope_data %>% mutate(water_demand=antelope_baseline-Reduction)
 ```
 
+To calculate demand for Antelope County:
+P= 2.858(A) and A= E0-E, where E0=220 AF
+P= 2.858(E0-E)
+P= 2.858(220-E)
+P= 628.76 - 2.858E
+
 ```{r}
 #plot the demand curve for Antelope County
 ggplot(antelope_data, aes(x=water_demand,y=predicted_mc))+
@@ -223,12 +221,17 @@ ggplot(antelope_data, aes(x=water_demand,y=predicted_mc))+
 ```
 
 Ventura County:
-
 ```{r}
 #derive demand curve for Ventura County
 #define demand or use as baseline (no policy) - Abatement
 ventura_data <- ventura_data %>% mutate(water_demand=ventura_baseline-Reduction)
 ```
+
+To calculate demand for Ventura County:
+P= 1.776(A) and A= E0-E, where E0=245 AF
+P= 1.776(E0-E)
+P= 1.776(245-E)
+P= 435.12 - 1.776E
 
 ```{r}
 #plot the demand for Ventura County
