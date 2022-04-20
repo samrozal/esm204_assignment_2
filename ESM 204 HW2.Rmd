@@ -266,11 +266,12 @@ magnitude of the fraction.
 - Using the baseline in each of the four cities, I set up an equation where the same fraction for each city times each city's baseline sums to 225. (225 is the amount of abatement that is needed (755-500))
 - p*150 + p*145 + p*220 + p*245 = 255
 - p=0.338
-- Each city will reduce their water usage by 0.338
-
+- Each city will reduce their water usage by 0.338 to achieve the policy 
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the
 tax.
+
+
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across
 districts. How much water is used by each district after trade? Stringency is the same as in part
