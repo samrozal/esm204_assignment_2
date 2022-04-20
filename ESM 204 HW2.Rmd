@@ -19,6 +19,8 @@ library(kableExtra)
 ```{r}
 water_districts <- read_csv(here("data", "Water_Districts.csv"))
 ```
+1. For each irrigation district, plot the marginal abatement cost data (from the data provided) and estimate a linear regression model with zero intercept. These estimated linear regressions will be your estimates of the marginal abatement cost curve (one for each irrigation district), which you will use for the remainder of this analysis.
+
 ```{r}
 #plot abatement for Kern county
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Kern))+
@@ -28,16 +30,11 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Kern))+
        title = "Cost of Abatement in Kern County")+
   theme(legend.background= element_rect(fill= "light blue"))+
   theme(plot.background = element_rect(fill="azure2")) +
-  theme(panel.background = element_rect(fill="aliceblue"))+
-  geom_smooth(method="lm")
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 ```{r}
 #Find linear regression model for Kern county 
 kern_lm <- lm(MC_Kern ~ 0 + Reduction, data=water_districts)
-kern_lm_tidy <- broom::tidy(kern_lm)
-
-kern_lm
-summary(kern_lm)
 ```
 Marginal Cost for Kern County = 2.286A
 -To calculate demand:
@@ -62,17 +59,7 @@ ggplot(water_districts, aes(x=Reduction, y=MC_Kern))+
   geom_point()+
   geom_line(data=kern_data, aes(x=Reduction, y=predicted_mc))
 ```
-```{r}
-#derive districts demand curve
-#define demand or use as baseline (no policy) - Abatement
-kern_data <- kern_data %>% mutate(water_demand=kern_baseline-Reduction)
-```
 
-```{r}
-#plot the demand 
-ggplot(kern_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
-```
 ```{r}
 #plot abatement for Mojave county
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Mojave))+
@@ -82,8 +69,7 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Mojave))+
        title = "Cost of Abatement in Mojave County")+
   theme(legend.background= element_rect(fill= "light blue"))+
   theme(plot.background = element_rect(fill="azure2")) +
-  theme(panel.background = element_rect(fill="aliceblue"))+
-  geom_smooth(method="lm")
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 
 ```{r}
@@ -118,17 +104,7 @@ ggplot(water_districts, aes(x=Reduction, y=MC_Mojave))+
   geom_point()+
   geom_line(data=mojave_data, aes(x=Reduction, y=predicted_mc))
 ```
-```{r}
-#derive districts demand curve
-#define demand or use as baseline (no policy) - Abatement
-mojave_data <- mojave_data %>% mutate(water_demand=mojave_baseline-Reduction)
-```
 
-```{r}
-#plot the demand 
-ggplot(mojave_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
-```
 
 
 ```{r}
@@ -140,8 +116,7 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Antelope))+
        title = "Cost of Abatement in Antelope County")+
   theme(legend.background= element_rect(fill= "light blue"))+
   theme(plot.background = element_rect(fill="azure2")) +
-  theme(panel.background = element_rect(fill="aliceblue"))+
-  geom_smooth(method="lm")
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 
 ```{r}
@@ -172,17 +147,7 @@ ggplot(water_districts, aes(x=Reduction, y=MC_Antelope))+
   geom_point()+
   geom_line(data=antelope_data, aes(x=Reduction, y=predicted_mc))
 ```
-```{r}
-#derive districts demand curve
-#define demand or use as baseline (no policy) - Abatement
-antelope_data <- antelope_data %>% mutate(water_demand=antelope_baseline-Reduction)
-```
 
-```{r}
-#plot the demand 
-ggplot(antelope_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
-```
 
 ```{r}
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Ventura))+
@@ -192,8 +157,7 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Ventura))+
        title = "Cost of Abatement in Ventura County")+
   theme(legend.background= element_rect(fill= "light blue"))+
   theme(plot.background = element_rect(fill="azure2")) +
-  theme(panel.background = element_rect(fill="aliceblue"))+
-  geom_smooth(method="lm")
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 ```{r}
 ventura_lm <- lm(MC_Ventura ~ 0 + Reduction, data=water_districts)
@@ -217,17 +181,61 @@ ggplot(water_districts, aes(x=Reduction, y=MC_Ventura))+
   geom_line(data=ventura_data, aes(x=Reduction, y=predicted_mc))
 ```
 
+2. Using your estimated marginal abatement cost curves, derive each district’s demand curve for water.In other words, how much would each district be willing to pay for the right to use the first AF of water,second AF, etc.? Plot each district’s demand curve on a single graph. Which sector is willing to pay the most for the first AF of water?
+
+Kern County:
 ```{r}
-#derive districts demand curve
+#derive the demand curve for Kern County 
+#define demand or use as baseline (no policy) - Abatement
+kern_data <- kern_data %>% mutate(water_demand=kern_baseline-Reduction)
+```
+
+```{r}
+#plot the demand for Kern County
+ggplot(kern_data, aes(x=water_demand,y=predicted_mc))+
+  geom_line()
+```
+
+Mojave County:
+```{r}
+#derive demand curve for Mojave county
+#define demand or use as baseline (no policy) - Abatement
+mojave_data <- mojave_data %>% mutate(water_demand=mojave_baseline-Reduction)
+```
+
+```{r}
+#plot the demand for Mojave County
+ggplot(mojave_data, aes(x=water_demand,y=predicted_mc))+
+  geom_line()
+```
+
+Antelope County:
+```{r}
+#derive demand curve for Antelope County
+#define demand or use as baseline (no policy) - Abatement
+antelope_data <- antelope_data %>% mutate(water_demand=antelope_baseline-Reduction)
+```
+
+```{r}
+#plot the demand curve for Antelope County
+ggplot(antelope_data, aes(x=water_demand,y=predicted_mc))+
+  geom_line()
+```
+
+Ventura County:
+
+```{r}
+#derive demand curve for Ventura County
 #define demand or use as baseline (no policy) - Abatement
 ventura_data <- ventura_data %>% mutate(water_demand=ventura_baseline-Reduction)
 ```
 
 ```{r}
-#plot the demand 
+#plot the demand for Ventura County
 ggplot(ventura_data, aes(x=water_demand,y=predicted_mc))+
   geom_line()
 ```
+
 
 ```{r}
 #using demand data from Kern and Mojave, join into one data set for plotting 
@@ -261,6 +269,7 @@ ggplot(data=joined_demand, aes(x=water_demand, y=predicted_mc))+
 #A function to compute the costs for a district's abatement given the abatement number
 quantity_abate = 50
 lm_mod=kern_lm
+
 #defining function
 calc_cost <- function(lm_mod, quantity_abate){
   estimated_cost = lm_mod$coefficients[1]*quantity_abate
