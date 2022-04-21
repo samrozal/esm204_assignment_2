@@ -13,7 +13,6 @@ library(here)
 library(janitor)
 library(lubridate)
 library(kableExtra)
-
 ```
 
 ```{r}
@@ -90,8 +89,6 @@ ggplot(water_districts, aes(x=Reduction, y=MC_Mojave))+
   geom_line(data=mojave_data, aes(x=Reduction, y=predicted_mc))
 ```
 
-
-
 ```{r}
 #plot the abatement curve for antelope
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Antelope))+
@@ -115,7 +112,7 @@ MC(A) for Antelope County = 2.858A
 ```{r}
 #fitting line for antelope 
 antelope_baseline <- 220
-antelope_data <- tibble(Reduction = 0:150)
+antelope_data <- tibble(Reduction = 0:220)
 predicted_mc <- predict(antelope_lm, newdata=antelope_data)
 antelope_data <- antelope_data %>% mutate(predicted_mc=predicted_mc)
 ```
@@ -149,7 +146,7 @@ MC(A) for Ventura County =1.776A
 ```{r}
 #fitting line for Ventura
 ventura_baseline <- 245
-ventura_data <- tibble(Reduction = 0:150)
+ventura_data <- tibble(Reduction = 0:245)
 predicted_mc <- predict(ventura_lm, newdata=ventura_data)
 ventura_data <- ventura_data %>% mutate(predicted_mc=predicted_mc)
 ```
@@ -177,6 +174,7 @@ P= 2.286(150-E)
 P= 342.9 - 2.286E
 
 Marginal Demand for Kern County = 342.9 - 2.286E
+
 ```{r}
 #plot the demand for Kern County
 ggplot(kern_data, aes(x=water_demand,y=predicted_mc))+
@@ -265,8 +263,8 @@ magnitude of the fraction.
 
 - Using the baseline in each of the four cities, I set up an equation where the same fraction for each city times each city's baseline sums to 225. (225 is the amount of abatement that is needed (755-500))
 - p*150 + p*145 + p*220 + p*245 = 255
-- p=0.338
-- Each city will reduce their water usage by 0.338 to achieve the policy 
+- p = 0.338
+- Each city will reduce their water usage by 0.338- to achieve the policy 
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the
 tax.
