@@ -141,10 +141,10 @@ ventura_lm_tidy <- broom::tidy(antelope_lm)
 
 ventura_lm
 ```
-MC(A) for Ventura County =1.776A
+MC(A) for Ventura County = 1.776A
 
 ```{r}
-#fitting line for Ventura
+#fitting line for Ventura 
 ventura_baseline <- 245
 ventura_data <- tibble(Reduction = 0:245)
 predicted_mc <- predict(ventura_lm, newdata=ventura_data)
@@ -297,27 +297,51 @@ calc_cost <- function(lm_mod, quantity_abate){
 }
 
 #what is the total cost of kern were to abate 117 unit?
-calc_cost(kern_lm, quantity_abate = 50.7)
+kern_cost <- calc_cost(kern_lm, quantity_abate = 50.7)
 
-#Q3a Kern abated 
-calc_cost(mojave_lm, quantity_abate = 47.32)
+mojave_cost <- calc_cost(mojave_lm, quantity_abate = 47.32)
 
-calc_cost(antelope_lm, quantity_abate = 74.36)
+antelope_cost <- calc_cost(antelope_lm, quantity_abate = 74.36)
 
-calc_cost(antelope_lm, quantity_abate = 82.81)
+ventura_cost <- calc_cost(ventura_lm, quantity_abate = 82.81)
+
+kern_cost
+mojave_cost
+antelope_cost
+ventura_cost
+
+total_cost <- kern_cost + mojave_cost + antelope_cost + ventura_cost
+total_cost
 
 ```
 
+b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
+
+```{r}
+kern_cost_b <- calc_cost(kern_lm, quantity_abate = 69.14)
+
+mojave_cost_b <- calc_cost(mojave_lm, quantity_abate = 41.56)
+
+antelope_cost_b <- calc_cost(antelope_lm, quantity_abate = 55.31)
+
+ventura_cost_b <- calc_cost(ventura_lm, quantity_abate = 89.01)
+
+kern_cost_b
+mojave_cost_b
+antelope_cost_b
+ventura_cost_b
+
+total_cost_b <- kern_cost_b + mojave_cost_b + antelope_cost_b + ventura_cost_b
+total_cost_b
 
 
-b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the
-tax.
-
-
+```
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across
 districts. How much water is used by each district after trade? Stringency is the same as in part
 (a).
+
+
 
 ```{r}
 #calculate by hand
