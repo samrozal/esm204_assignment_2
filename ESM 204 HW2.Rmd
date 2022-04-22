@@ -1,6 +1,6 @@
 ---
 title: "ESM 204 HW"
-author: "Sam Rozal and Virginia Pan"
+author: "Sam Rozal, Virginia Pan, Kat Orellana"
 date: "4/18/2022"
 output: html_document
 ---
