@@ -264,7 +264,51 @@ magnitude of the fraction.
 - Using the baseline in each of the four cities, I set up an equation where the same fraction for each city times each city's baseline sums to 225. (225 is the amount of abatement that is needed (755-500))
 - p*150 + p*145 + p*220 + p*245 = 255
 - p = 0.338
-- Each city will reduce their water usage by 0.338- to achieve the policy 
+- Each city will reduce their water usage by 0.338 to achieve the policy 
+
+Kern county:
+Abatement = baseline x 0.338
+Abatement = 150 X 0.338
+Abatement = 50.7
+
+Mojave County:
+Abatement = baseline x 0.338
+Abatement = 140 X 0.338
+Abatement = 47.32
+
+Antelope County:
+Abatement = baseline x 0.338
+Abatement = 220 X 0.338
+Abatement = 74.36
+
+Ventura County:
+Abatement = baseline x 0.338
+Abatement = 245 X 0.338
+Abatement = 82.81
+
+```{r}
+quantity_abate = 50
+
+#defining function
+calc_cost <- function(lm_mod, quantity_abate){
+  estimated_cost = lm_mod$coefficients[1]*quantity_abate
+  total_cost = 0.5 * quantity_abate * estimated_cost
+  return(total_cost[[1]])
+}
+
+#what is the total cost of kern were to abate 117 unit?
+calc_cost(kern_lm, quantity_abate = 50.7)
+
+#Q3a Kern abated 
+calc_cost(mojave_lm, quantity_abate = 47.32)
+
+calc_cost(antelope_lm, quantity_abate = 74.36)
+
+calc_cost(antelope_lm, quantity_abate = 82.81)
+
+```
+
+
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the
 tax.
