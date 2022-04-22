@@ -337,9 +337,7 @@ total_cost_b
 
 ```
 
-c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across
-districts. How much water is used by each district after trade? Stringency is the same as in part
-(a).
+c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
 
 
