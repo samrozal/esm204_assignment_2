@@ -1,7 +1,7 @@
 ---
-title: "ESM 204 HW"
+title: "ESM 204 HW 2"
 author: "Sam Rozal, Virginia Pan, Kat Orellana"
-date: "4/18/2022"
+date: "4/25/2022"
 output: html_document
 ---
 
@@ -137,7 +137,7 @@ ggplot(data=water_districts, aes(x=Reduction, y=MC_Ventura))+
 ```
 ```{r}
 ventura_lm <- lm(MC_Ventura ~ 0 + Reduction, data=water_districts)
-ventura_lm_tidy <- broom::tidy(antelope_lm)
+ventura_lm_tidy <- broom::tidy(ventura_lm)
 
 ventura_lm
 ```
@@ -251,8 +251,14 @@ ggplot(data=joined_demand, aes(x=water_demand, y=predicted_mc))+
   geom_line(aes(color=Districts))
 
 #this is what sandy did in office hours but it didnt work so I did a ggplot : plot(data = joined_demand, aes(x=water_demand, y=predicted_mc, color="Districts"))+ geom_line()
-```
 
+Marginal Demand for Kern County P = 342.9 - 2.286E
+Marginal Demand for Mojave County P = 532.56 - 3.804E
+Marginal Demand for Antelope County P= 628.76 - 2.858E
+Marginal Demand for Ventura County P= 435.12 - 1.776E
+
+```
+2. Antelope irrigation district are willing to pay the most for the first acre-foot of water. 
 
 ## How to Solve 3A
 Here you will analyze three alternative policies for reducing water use among these irrigation districts.In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: (1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, (2) calculate the total cost of meeting the target using that approach, (3) calculate the cost to each district, and (4) calculate the tax revenue generated.
