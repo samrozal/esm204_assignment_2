@@ -385,9 +385,18 @@ total_cost_b <- kern_cost_b + mojave_cost_b + antelope_cost_b + ventura_cost_b
 total_cost_b
 
 ```
-```{r}
-#calculate the tax 
 
+```{r}
+#calculate the revenue 
+
+#write a function
+calc_revenue <- function(baseline,quantity_abate){
+  revenue <- (158.09 * baseline-quantity_abate)
+  return(revenue)
+}
+
+revnue_kern <- calc_revenue(baseline=140,quantity_abate=69.14)
+revnue_kern
 
 ```
 
