@@ -267,6 +267,8 @@ df_agg <- data.frame(Reduction = agg_vals,
 plot(agg_vals, agg_MC)
 ```
 
+----------------------------------------------------------------------------
+
 
 ```{r}
 #using demand data from Kern and Mojave, join into one data set for plotting 
@@ -274,7 +276,7 @@ joined_demand <- bind_rows("Mojave" = mojave_data,
                            "Kern" = kern_data, 
                            "Antelope" = antelope_data,
                            "Ventura" = ventura_data,
-                           "Total" = df_agg,
+                           #"Total" = df_agg,
                            .id="Districts")
 
 
@@ -291,14 +293,13 @@ ggplot(data=joined_demand, aes(x=water_demand, y=predicted_mc))+
 ## How to Solve 3A
 Here you will analyze three alternative policies for reducing water use among these irrigation districts.In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: (1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, (2) calculate the total cost of meeting the target using that approach, (3) calculate the cost to each district, and (4) calculate the tax revenue generated.
 
-a. Cap without trade. Reduce each district’s water use by the same fraction (e.g., 1/3 of current
-baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the
-magnitude of the fraction.
+a. Cap without trade. Reduce each district’s water use by the same fraction (e.g., 1/3 of current baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the magnitude of the fraction.
 
 - Using the baseline in each of the four cities, I set up an equation where the same fraction for each city times each city's baseline sums to 225. (225 is the amount of abatement that is needed (755-500))
 - p*150 + p*145 + p*220 + p*245 = 255
 - p = 0.338
-- Each city will reduce their water usage by 0.338 to achieve the policy 
+- Each city will reduce their water usage by 0.338 to achieve the policy [0.338 stringency]
+- No tax revenue generated
 
 Kern county:
 Abatement = baseline x 0.338
@@ -348,6 +349,11 @@ total_cost <- kern_cost + mojave_cost + antelope_cost + ventura_cost
 total_cost
 
 ```
+Total cost is: `r total_cost`
+Kern abatement cost is: `r kern_cost`
+Mojave abatement cost is: `r mojave_cost`
+Antelope abatement cost is: `r antelop_cost`
+Ventura abatement cost is: `r venturea_cost`
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
 
