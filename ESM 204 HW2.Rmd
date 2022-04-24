@@ -690,7 +690,7 @@ Antelope County: P=2.858Q
 
 Ventura County: P=1.776Q
 - Q(ventura) = (1/1.776)(282.08)
-- Q(ventura) = 158.82
+- Q(ventura) = 158.83
 
 ```{r}
 kern_cost_b_4 <- calc_cost(kern_lm, quantity_abate = 123.39)
@@ -699,7 +699,7 @@ mojave_cost_b_4 <- calc_cost(mojave_lm, quantity_abate = 74.15)
 
 antelope_cost_b_4 <- calc_cost(antelope_lm, quantity_abate = 98.70)
 
-ventura_cost_b_4 <- calc_cost(ventura_lm, quantity_abate = 158.82)
+ventura_cost_b_4 <- calc_cost(ventura_lm, quantity_abate = 158.83)
 
 kern_cost_b_4
 mojave_cost_b_4
@@ -723,7 +723,7 @@ calc_revenue <- function(baseline,quantity_abate){
 revnue_kern_4 <- calc_revenue(baseline=140,quantity_abate=123.39)
 revnue_mojave_4 <- calc_revenue(baseline=150,quantity_abate=74.15)
 revnue_antelope_4 <- calc_revenue(baseline=220,quantity_abate=98.70)
-revnue_ventura_4 <- calc_revenue(baseline=245,quantity_abate=158.82)
+revnue_ventura_4 <- calc_revenue(baseline=245,quantity_abate=158.83)
 
 revnue_kern_4
 revnue_mojave_4
@@ -756,7 +756,7 @@ antelope_before_trade_4 <-estimated_cost(antelope_lm,131.78)
 antelope_after_trade_4 <-estimated_cost(antelope_lm,98.70)
 
 ventura_before_trade_4 <-estimated_cost(ventura_lm,146.76)
-ventura_after_trade_4 <-estimated_cost(ventura_lm,158.82)
+ventura_after_trade_4 <-estimated_cost(ventura_lm,158.83)
 
 kern_before_trade_4
 kern_after_trade_4
@@ -777,7 +777,7 @@ additional_benefit <- function(p_before_trade,p_after_trade,q_before_trade,q_aft
 additional_benefit_kern_4 <-additional_benefit(kern_before_trade_4, kern_after_trade_4, 89.85, 123.39)
 additional_benefit_mojave_4<- additional_benefit(mojave_before_trade_4, mojave_after_trade_4,83.86,74.15)
 additional_benefit_antelope_4<- additional_benefit(antelope_before_trade_4, antelope_after_trade_4, 131.78,98.70)
-additional_benefit_ventura_4 <- additional_benefit(ventura_before_trade_4, ventura_after_trade_4,146.76,158.82)
+additional_benefit_ventura_4 <- additional_benefit(ventura_before_trade_4, ventura_after_trade_4,146.76,158.83)
 
 additional_benefit_kern_4
 additional_benefit_mojave_4
