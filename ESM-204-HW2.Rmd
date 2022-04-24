@@ -5,8 +5,8 @@ date: "4/25/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE, message = FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(tidyr)
 library(here)
@@ -237,6 +237,37 @@ ggplot(ventura_data, aes(x=water_demand,y=predicted_mc))+
   geom_line()
 ```
 
+--------------------------------------------------------------
+#Aggregate demand curve calculation 
+Marginal Demand for Kern County P = 342.9 - 2.286E
+E=(P-342.9)/-2.286
+Marginal Demand for Mojave County P = 532.56 - 3.804E
+E=(P-532.56)/-3.804
+Marginal Demand for Antelope County P= 628.76 - 2.858E
+E=(P-628.76)/-2.858
+Marginal Demand for Ventura County P= 435.12 - 1.776E
+E=(P-435.12)/-1.776
+
+#sum E curves 
+E = (P-342.9)/-2.286 + (P-532.56)/-3.804 + (P-628.76)/-2.858 + (P-435.12)/-1.776
+E = 755.0-1.6133P
+#solve for P
+P=(E-755)/-1.6133
+P=467.98-0.61985E
+
+
+```{r}
+#creating aggregate demand curve 
+agg_vals <- 0:245
+agg_MC = 467.98-0.61985*(agg_vals)
+df_agg <- data.frame(Reduction = agg_vals,
+                   predicted_mc = agg_MC, 
+                   water_demand = rev(agg_vals))
+
+plot(agg_vals, agg_MC)
+```
+
+----------------------------------------------------------------------------
 
 
 ```{r}
@@ -245,6 +276,7 @@ joined_demand <- bind_rows("Mojave" = mojave_data,
                            "Kern" = kern_data, 
                            "Antelope" = antelope_data,
                            "Ventura" = ventura_data,
+                           #"Total" = df_agg,
                            .id="Districts")
 
 
@@ -320,8 +352,8 @@ total_cost
 Total cost is: `r total_cost`
 Kern abatement cost is: `r kern_cost`
 Mojave abatement cost is: `r mojave_cost`
-Antelope abatement cost is: `r antelope_cost`
-Ventura abatement cost is: `r ventura_cost`
+Antelope abatement cost is: `r antelop_cost`
+Ventura abatement cost is: `r venturea_cost`
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
 
@@ -390,8 +422,8 @@ total_cost_b
 Total abatement cost with tax is: `r total_cost_b`
 Kern abatement cost with tax is: `r kern_cost_b`
 Mojave abatement cost with tax is: `r mojave_cost_b`
-Antelope abatement cost with tax is: `r antelope_cost_b`
-Ventura abatement cost with tax is: `r ventura_cost_b`
+Antelope abatement cost with tax is: `r antelop_cost_b`
+Ventura abatement cost with tax is: `r venturea_cost_b`
 
 Stringency (magnitude of the tax) is: $158.09 
 
@@ -423,7 +455,7 @@ total_quantity_used = 500
 total_tax_revenue2 = total_quantity_used*tax1
 total_tax_revenue2
 ```
-Total government revenue generated from tax: $`r total_tax_revenue`
+Total government revenue generated from tax: $`r total_tax_revnue`
 
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
@@ -611,8 +643,8 @@ total_cost_4
 Total cost is: `r total_cost_4`
 Kern abatement cost is: `r kern_cost_4`
 Mojave abatement cost is: `r mojave_cost_4`
-Antelope abatement cost is: `r antelope_cost_4`
-Ventura abatement cost is: `r ventura_cost_4`
+Antelope abatement cost is: `r antelop_cost_4`
+Ventura abatement cost is: `r venturea_cost_4`
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 300 AF target. Stringency is defined as the magnitude of the tax.
 
