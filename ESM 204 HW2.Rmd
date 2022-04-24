@@ -424,14 +424,82 @@ calc_revenue <- function(baseline,quantity_abate){
 }
 
 revnue_kern <- calc_revenue(baseline=140,quantity_abate=69.14)
-revnue_kern
+revnue_mojave <- calc_revenue(baseline=150,quantity_abate=41.56)
+revnue_antelope <- calc_revenue(baseline=220,quantity_abate=55.31)
+revnue_ventura <- calc_revenue(baseline=240,quantity_abate=89.01)
+
+revnue_kern 
+revnue_mojave 
+revnue_antelope 
+revnue_ventura 
 
 ```
-
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
 
+For Cap and Trade, we set the initial Q values for each of the four districts so that it is the same as in part (a) so Kern abates 50.07 AF, Mojave abates 47.32 AF, Antelope abates 74.36 AF, and Ventura abates 82.81 AF. However because trading is allowed, the districts will buy and sell their water rights, to reach the socially optimal point which is what we found under part b. Therefore in the end, Kern abates 69.14 AF, Mojave abates 41.56 AF, Antelope abates 55.31 AF, and Ventura abates 89.01 AF. 
+
+The cost therefore, should be the same as in part b
+
+
+```{r}
+kern_cost_b <- calc_cost(kern_lm, quantity_abate = 69.14)
+
+mojave_cost_b <- calc_cost(mojave_lm, quantity_abate = 41.56)
+
+antelope_cost_b <- calc_cost(antelope_lm, quantity_abate = 55.31)
+
+ventura_cost_b <- calc_cost(ventura_lm, quantity_abate = 89.01)
+
+kern_cost_b
+mojave_cost_b
+antelope_cost_b
+ventura_cost_b
+```
+
+However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the orgninal cap. This is calculated below:
+
+```{r}
+estimated_cost <- function(lm_mod, quantity_abate){
+  (estimated_cost = lm_mod$coefficients[1]*quantity_abate)
+  return(estimated_cost)
+}
+
+kern_before_trade <- estimated_cost(kern_lm,50.07)
+kern_before_trade
+kern_after_trade <- estimated_cost(kern_lm, 69.14)
+kern_after_trade
+
+mojave_before_trade <-estimated_cost(mojave_lm,47.32)
+mojave_after_trade <-estimated_cost(mojave_lm,41.56)
+
+antelope_before_trade <-estimated_cost(antelope_lm,74.36)
+antelope_after_trade <-estimated_cost(antelope_lm,55.31)
+
+ventura_before_trade <-estimated_cost(ventura_lm,82.81)
+ventura_after_trade <-estimated_cost(ventura_lm,89.01)
+
+ventura_before_trade 
+ventura_after_trade
+```
+
+```{r}
+additional_benefit <- function(p_before_trade,p_after_trade,q_before_trade,q_after_trade){
+  (additional_benefit =(0.5)*(p_before_trade-p_after_trade)*(q_before_trade-q_after_trade))
+  return(additional_benefit)
+}
+
+additional_benefit_kern <-additional_benefit(kern_before_trade, kern_after_trade, 50.07, 69.14)
+additional_benefit_mojave <- additional_benefit(mojave_before_trade, mojave_after_trade,47.32,41.56)
+additional_benefit_antelope <- additional_benefit(antelope_before_trade, antelope_after_trade,74.36,55.31)
+additional_benefit_ventura <- additional_benefit(ventura_before_trade, ventura_after_trade,82.81,89.01)
+
+additional_benefit_kern 
+additional_benefit_mojave 
+additional_benefit_antelope
+additional_benefit_ventura
+```
 
 ```{r}
 #calculate by hand
@@ -443,6 +511,8 @@ c. Cap and trade. Cap water use as in part (a), but after those caps are set, al
 #p= 0.338
 #solve(deductions)
 ```
+
+
 ```{r}
 #A function to compute the costs for a district's abatement given the abatement number
 quantity_abate = 50
