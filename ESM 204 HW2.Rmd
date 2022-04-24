@@ -397,13 +397,51 @@ calc_revenue <- function(baseline,quantity_abate){
 
 revnue_kern <- calc_revenue(baseline=140,quantity_abate=69.14)
 revnue_kern
-
 ```
 
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
+```{r}
+estimated_cost <- function(lm_mod, quantity_abate){
+  (estimated_cost = lm_mod$coefficients[1]*quantity_abate)
+  return(estimated_cost)
+}
 
+kern_before_trade <- estimated_cost(kern_lm,50.07)
+kern_before_trade
+kern_after_trade <- estimated_cost(kern_lm, 69.14)
+kern_after_trade
+
+mojave_before_trade <-estimated_cost(mojave_lm,47.32)
+mojave_after_trade <-estimated_cost(mojave_lm,41.56)
+
+antelope_before_trade <-estimated_cost(antelope_lm,74.36)
+antelope_after_trade <-estimated_cost(antelope_lm,55.31)
+
+ventura_before_trade <-estimated_cost(ventura_lm,82.81)
+ventura_after_trade <-estimated_cost(ventura_lm,89.01)
+
+ventura_before_trade 
+ventura_after_trade
+```
+
+```{r}
+additional_cost <- function(p_before_trade,p_after_trade,q_before_trade,q_after_trade){
+  (additional_cost =(0.5)*(p_before_trade-p_after_trade)*(q_before_trade-q_after_trade))
+  return(additional_cost)
+}
+
+additional_cost_kern <-additional_cost(kern_before_trade, kern_after_trade, 50.07, 69.14)
+additional_cost_mojave <- additional_cost(mojave_before_trade, mojave_after_trade,47.32,41.56)
+additional_cost_antelope <- additional_cost(antelope_before_trade, antelope_after_trade,74.36,55.31)
+additional_cost_ventura <- additional_cost(ventura_before_trade, ventura_after_trade,82.81,89.01)
+
+additional_cost_kern 
+additional_cost_mojave 
+additional_cost_antelope
+additional_cost_ventura
+```
 
 ```{r}
 #calculate by hand
