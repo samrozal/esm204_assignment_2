@@ -419,6 +419,13 @@ total_cost_b <- kern_cost_b + mojave_cost_b + antelope_cost_b + ventura_cost_b
 total_cost_b
 
 ```
+Total abatement cost with tax is: `r total_cost_b`
+Kern abatement cost with tax is: `r kern_cost_b`
+Mojave abatement cost with tax is: `r mojave_cost_b`
+Antelope abatement cost with tax is: `r antelop_cost_b`
+Ventura abatement cost with tax is: `r venturea_cost_b`
+
+Stringency (magnitude of the tax) is: $158.09 
 
 ```{r}
 #calculate the revenue 
@@ -439,7 +446,17 @@ revnue_mojave
 revnue_antelope 
 revnue_ventura 
 
+total_tax_revenue <- revnue_kern + revnue_antelope + revnue_ventura + revnue_mojave
+total_tax_revenue
+#double check gov revenue calculations
+#tax is on the amount of water used! 
+total_quantity_used = 500
+tax = 158.09
+total_tax_revenue2 = total_quantity_used*tax
+total_tax_revenue2
 ```
+Total government revenue generated from tax: $`r total_tax_revnue`
+
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
