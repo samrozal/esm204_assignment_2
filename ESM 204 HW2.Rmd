@@ -433,15 +433,14 @@ ventura_cost_b
 However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the orgninal cap. This is calculated below:
 
 ```{r}
+#find the estimated q value both before and after trade
 estimated_cost <- function(lm_mod, quantity_abate){
   (estimated_cost = lm_mod$coefficients[1]*quantity_abate)
   return(estimated_cost)
 }
 
 kern_before_trade <- estimated_cost(kern_lm,50.07)
-kern_before_trade
 kern_after_trade <- estimated_cost(kern_lm, 69.14)
-kern_after_trade
 
 mojave_before_trade <-estimated_cost(mojave_lm,47.32)
 mojave_after_trade <-estimated_cost(mojave_lm,41.56)
@@ -452,6 +451,12 @@ antelope_after_trade <-estimated_cost(antelope_lm,55.31)
 ventura_before_trade <-estimated_cost(ventura_lm,82.81)
 ventura_after_trade <-estimated_cost(ventura_lm,89.01)
 
+kern_before_trade 
+kern_after_trade
+mojave_before_trade 
+mojave_after_trade
+antelope_before_trade 
+antelope_after_trade
 ventura_before_trade 
 ventura_after_trade
 ```
@@ -472,6 +477,28 @@ additional_benefit_mojave
 additional_benefit_antelope
 additional_benefit_ventura
 ```
+Now we can get the total cost by subtracting the cost we got in a, minus the additional benefit.
+
+
+```{r}
+#kern county cost:
+total_cost_kern <- kern_cost - additional_benefit_kern 
+
+total_cost_mojave <- mojave_cost - additional_benefit_mojave
+
+total_cost_antelope <- antelope_cost - additional_benefit_antelope
+
+total_cost_ventura <- ventura_cost - additional_benefit_ventura
+
+total_cost_kern 
+total_cost_mojave 
+total_cost_antelope 
+total_cost_ventura 
+
+total_cost_all <- total_cost_kern + total_cost_mojave + total_cost_antelope + total_cost_ventura
+total_cost_all
+```
+
 
 ```{r}
 #calculate by hand
