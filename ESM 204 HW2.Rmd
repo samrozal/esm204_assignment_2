@@ -237,6 +237,36 @@ ggplot(ventura_data, aes(x=water_demand,y=predicted_mc))+
   geom_line()
 ```
 
+--------------------------------------------------------------
+#Aggregate demand curve calculation 
+Marginal Demand for Kern County P = 342.9 - 2.286E
+E=(P-342.9)/-2.286
+Marginal Demand for Mojave County P = 532.56 - 3.804E
+E=(P-532.56)/-3.804
+Marginal Demand for Antelope County P= 628.76 - 2.858E
+E=(P-628.76)/-2.858
+Marginal Demand for Ventura County P= 435.12 - 1.776E
+E=(P-435.12)/-1.776
+
+#sum E curves 
+E = (P-342.9)/-2.286 + (P-532.56)/-3.804 + (P-628.76)/-2.858 + (P-435.12)/-1.776
+E = 755.0-1.6133P
+#solve for P
+P=(E-755)/-1.6133
+P=467.98-0.61985E
+
+
+```{r}
+#creating aggregate demand curve 
+agg_vals <- 0:245
+agg_MC = 467.98-0.61985*(agg_vals)
+df_agg <- data.frame(Reduction = agg_vals,
+                   predicted_mc = agg_MC, 
+                   water_demand = rev(agg_vals))
+
+plot(agg_vals, agg_MC)
+```
+
 
 ```{r}
 #using demand data from Kern and Mojave, join into one data set for plotting 
@@ -244,18 +274,16 @@ joined_demand <- bind_rows("Mojave" = mojave_data,
                            "Kern" = kern_data, 
                            "Antelope" = antelope_data,
                            "Ventura" = ventura_data,
+                           "Total" = df_agg,
                            .id="Districts")
 
 
 ggplot(data=joined_demand, aes(x=water_demand, y=predicted_mc))+
   geom_line(aes(color=Districts))
 
-#this is what sandy did in office hours but it didnt work so I did a ggplot : plot(data = joined_demand, aes(x=water_demand, y=predicted_mc, color="Districts"))+ geom_line()
 
-Marginal Demand for Kern County P = 342.9 - 2.286E
-Marginal Demand for Mojave County P = 532.56 - 3.804E
-Marginal Demand for Antelope County P= 628.76 - 2.858E
-Marginal Demand for Ventura County P= 435.12 - 1.776E
+
+#this is what sandy did in office hours but it didnt work so I did a ggplot : plot(data = joined_demand, aes(x=water_demand, y=predicted_mc, color="Districts"))+ geom_line()
 
 ```
 2. Antelope irrigation district are willing to pay the most for the first acre-foot of water. 
