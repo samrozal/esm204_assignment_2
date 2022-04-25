@@ -908,7 +908,7 @@ Kern
 
 * Cap without trade: $9228
 
-* Tax: $17405
+* Tax: $22090.47
 
 * Cap and Trade: $7942
   
@@ -916,7 +916,7 @@ Mojave
 
 * Cap without trade: $13375
 
-* Tax: $10457
+* Tax: $31853.47
 
 * Cap and Trade: $13196.59
   
@@ -924,7 +924,7 @@ Antelope:
 
 * Cap without trade: $24812
 
-* Tax: $13919
+* Tax: $48135.43
 
 * Cap and Trade: $23249.31
   
@@ -932,10 +932,10 @@ Ventura:
 
 * Cap without trade: $19126
 
-* Tax: $22402
+* Tax: $46708.93
 
 * Cap and Trade: $18997.29
   
-Therefore, Kern would prefer Cap and Trade, Mojave would prefer a Tax, Antelope would prefer a Tax, and Ventura would prefer Cap and Trade because these are the scenarios/policies that have the lowest cost to each district. 
+Therefore, Kern would prefer Cap and Trade, Mojave would prefer Cap and Trade, Antelope would prefer Cap and Trade, and Ventura would prefer Cap and Trade because these are the scenarios/policies that have the lowest cost to each district. 
 
 Our answer depends on how rights are allocated to each district in policies a and c because in a cap without trade scenario a district only has the rights they are allocated, whereas in a cap and trade scenario they can trade rights to reach maximum benefit for all parties involved. Depending on the rights allocated in the cap without trade scenario , some districts would loose out on a significant benefit that may be aqqured from either selling or buying additional water rights.
