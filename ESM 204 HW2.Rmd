@@ -449,7 +449,7 @@ antelope_cost_b
 ventura_cost_b
 ```
 
-However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the orgninal cap. This is calculated below:
+However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the original cap. This is calculated below:
 
 ```{r}
 #find the estimated q value both before and after trade
@@ -517,7 +517,19 @@ total_cost_ventura
 total_cost_all <- total_cost_kern + total_cost_mojave + total_cost_antelope + total_cost_ventura
 total_cost_all
 ```
+Stringency is the same as in part 1:  0.338
 
+Total cost under cap and trade is: $ `r total_cost_all`
+
+Total cost under cap and trade for Kern is: $ `r total_cost_kern`
+
+Total cost under cap and trade for Mojave is: $ `r total_cost_mojave`
+
+Total cost under cap and trade for Antelope is: $ `r total_cost_antelope`
+
+Total cost under cap and trade for Ventura is: $ `r total_cost_ventura`
+
+No Tax revenue is generated under cap and trade 
 
 ```{r}
 #calculate by hand
@@ -529,7 +541,6 @@ total_cost_all
 #p= 0.338
 #solve(deductions)
 ```
-
 
 ```{r}
 #A function to compute the costs for a district's abatement given the abatement number
