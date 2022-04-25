@@ -25,7 +25,7 @@ water_districts <- read_csv(here("data", "Water_Districts.csv"))
 ggplot(data=water_districts, aes(x=Reduction, y=MC_Kern))+
   geom_point()+
   labs(x="Reduction",
-        y= "Marginal Cost Of Abatement",
+       y= "Marginal Cost Of Abatement",
        title = "Cost of Abatement in Kern County")+
   theme(legend.background= element_rect(fill= "light blue"))+
   theme(plot.background = element_rect(fill="azure2")) +
@@ -158,9 +158,9 @@ ggplot(water_districts, aes(x=Reduction, y=MC_Ventura))+
   geom_line(data=ventura_data, aes(x=Reduction, y=predicted_mc))
 ```
 
-2. Using your estimated marginal abatement cost curves, derive each district’s demand curve for water.In other words, how much would each district be willing to pay for the right to use the first AF of water,second AF, etc.? Plot each district’s demand curve on a single graph. Which sector is willing to pay the most for the first AF of water?
+# 2. Using your estimated marginal abatement cost curves, derive each district’s demand curve for water.In other words, how much would each district be willing to pay for the right to use the first AF of water,second AF, etc.? Plot each district’s demand curve on a single graph. Which sector is willing to pay the most for the first AF of water?
 
-Kern County:
+## Kern County:
 ```{r}
 #derive the demand curve for Kern County 
 #define demand or use as baseline (no policy) - Abatement
@@ -168,9 +168,13 @@ kern_data <- kern_data %>% mutate(water_demand=kern_baseline-Reduction)
 ```
 
 To calculate demand for Kern County:
+
 P= 2.286(A) and A= E0-E, where E0=150 AF
+
 P= 2.286(E0-E)
+
 P= 2.286(150-E)
+
 P= 342.9 - 2.286E
 
 Marginal Demand for Kern County = 342.9 - 2.286E
@@ -178,28 +182,44 @@ Marginal Demand for Kern County = 342.9 - 2.286E
 ```{r}
 #plot the demand for Kern County
 ggplot(kern_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
+  geom_line() +
+  labs(x="Water Use (Acre Foot)",
+       y= "Price (Dollars per Acre Foot)",
+       title = "Water Demand Curve for Kern County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 
-Mojave County:
+### Mojave County:
 ```{r}
 #derive demand curve for Mojave county
 #define demand or use as baseline (no policy) - Abatement
 mojave_data <- mojave_data %>% mutate(water_demand=mojave_baseline-Reduction)
 ```
--To calculate demand for Mojave County:
+To calculate demand for Mojave County:
+
 P= 3.804(A) and A= E0-E, where E0=140 AF
+
 P= 3.804(E0-E)
+
 P= 3.804(140-E)
+
 P= 532.56 - 3.804E
 
 ```{r}
 #plot the demand for Mojave County
 ggplot(mojave_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
+  geom_line() +
+  labs(x="Water Use (Acre Foot)",
+       y= "Price (Dollars per Acre Foot)",
+       title = "Water Demand Curve for Mojave County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 
-Antelope County:
+### Antelope County:
 ```{r}
 #derive demand curve for Antelope County
 #define demand or use as baseline (no policy) - Abatement
@@ -207,18 +227,28 @@ antelope_data <- antelope_data %>% mutate(water_demand=antelope_baseline-Reducti
 ```
 
 To calculate demand for Antelope County:
+
 P= 2.858(A) and A= E0-E, where E0=220 AF
+
 P= 2.858(E0-E)
+
 P= 2.858(220-E)
+
 P= 628.76 - 2.858E
 
 ```{r}
 #plot the demand curve for Antelope County
 ggplot(antelope_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
+  geom_line() +
+  labs(x="Water Use (Acre Foot)",
+       y= "Price (Dollars per Acre Foot)",
+       title = "Water Demand Curve for Antelope County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 
-Ventura County:
+### Ventura County:
 ```{r}
 #derive demand curve for Ventura County
 #define demand or use as baseline (no policy) - Abatement
@@ -226,15 +256,25 @@ ventura_data <- ventura_data %>% mutate(water_demand=ventura_baseline-Reduction)
 ```
 
 To calculate demand for Ventura County:
-P= 1.776(A) and A= E0-E, where E0=245 AF
-P= 1.776(E0-E)
-P= 1.776(245-E)
-P= 435.12 - 1.776E
+
+  P= 1.776(A) and A= E0-E, where E0=245 AF
+  
+  P= 1.776(E0-E)
+  
+  P= 1.776(245-E)
+  
+  P= 435.12 - 1.776E
 
 ```{r}
 #plot the demand for Ventura County
 ggplot(ventura_data, aes(x=water_demand,y=predicted_mc))+
-  geom_line()
+  geom_line() +
+  labs(x="Water Use (Acre Foot)",
+       y= "Price (Dollars per Acre Foot)",
+       title = "Water Demand Curve for Ventura County")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))
 ```
 
 
@@ -249,14 +289,22 @@ joined_demand <- bind_rows("Mojave" = mojave_data,
 
 
 ggplot(data=joined_demand, aes(x=water_demand, y=predicted_mc))+
-  geom_line(aes(color=Districts))
+  geom_line(aes(color=Districts)) +
+  labs(x="Water Use (Acre Foot)",
+       y= "Price (Dollars per Acre Foot)",
+       title = "Water Demand")+
+  theme(legend.background= element_rect(fill= "light blue"))+
+  theme(plot.background = element_rect(fill="azure2")) +
+  theme(panel.background = element_rect(fill="aliceblue"))
 
 
 
 #this is what sandy did in office hours but it didnt work so I did a ggplot : plot(data = joined_demand, aes(x=water_demand, y=predicted_mc, color="Districts"))+ geom_line()
 
 ```
-2. Antelope irrigation district are willing to pay the most for the first acre-foot of water. 
+
+
+Antelope irrigation district is willing to pay the most for the first acre-foot of water. 
 
 ## How to Solve 3A
 Here you will analyze three alternative policies for reducing water use among these irrigation districts.In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: (1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, (2) calculate the total cost of meeting the target using that approach, (3) calculate the cost to each district, and (4) calculate the tax revenue generated.
