@@ -533,11 +533,12 @@ antelope_cost_b &lt;- calc_cost(antelope_lm, quantity_abate = 55.31)
 ventura_cost_b &lt;- calc_cost(ventura_lm, quantity_abate = 89.01)
 
 total_cost_b &lt;- kern_cost_b + mojave_cost_b + antelope_cost_b + ventura_cost_b</code></pre>
-<p>Total abatement cost with tax is: 2.015669^{4}</p>
-<p>Kern abatement cost with tax is: 5464.8199983</p>
-<p>Mojave abatement cost with tax is: 3285.2247943</p>
-<p>Antelope abatement cost with tax is: 4371.0419783</p>
-<p>Ventura abatement cost with tax is: 7035.6031524</p>
+<p>Cost of abatement with tax is: 2.015669^{4}</p>
+<p>Kern cost of abatement cost with tax is: 5464.8199983</p>
+<p>Mojave cost of abatement with tax is: 3285.2247943</p>
+<p>Antelope cost of abatement with tax is: 4371.0419783</p>
+<p>Ventura cost of abatement with tax is: 7035.6031524</p>
+<p>However, in order to get the total cost incurred to each of the districts, we need to find how much they are paying the government for the water rights.</p>
 <p>Stringency (magnitude of the tax) is: $158.09</p>
 <pre class="r"><code>#calculate the revenue for tax 1
 tax1 = 158.09
@@ -561,6 +562,13 @@ total_tax_revenue &lt;- revnue_kern + revnue_antelope + revnue_ventura + revnue_
 total_quantity_used = 500
 total_tax_revenue2 = total_quantity_used*tax1</code></pre>
 <p>Total government revenue generated from tax: $7.8251388^{4}</p>
+<p>Total cost under a tax:</p>
+<p>To get this, we add cost of abatemnt under a tax and the amount they pay the government (revenue)</p>
+<p>Cost of abatement with tax is: 9.8408078^{4}</p>
+<p>Kern abatement cost with tax is: 1.6667077^{4}</p>
+<p>Mojave abatement cost with tax is: 2.0428504^{4}</p>
+<p>Antelope abatement cost with tax is: 3.0406884^{4}</p>
+<p>Ventura abatement cost with tax is: 3.0905612^{4}</p>
 <p><strong>c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).</strong></p>
 <p>For Cap and Trade, we set the initial Q values for each of the four districts so that it is the same as in part (a) so Kern abates 50.07 AF, Mojave abates 47.32 AF, Antelope abates 74.36 AF, and Ventura abates 82.81 AF. However because trading is allowed, the districts will buy and sell their water rights, to reach the socially optimal point which is what we found under part b. Therefore in the end, Kern abates 69.14 AF, Mojave abates 41.56 AF, Antelope abates 55.31 AF, and Ventura abates 89.01 AF.</p>
 <p>However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the original cap that needs to be accounted for to calculate total cost for each district. This is calculated below:</p>
@@ -740,12 +748,13 @@ antelope_cost_b_4 &lt;- calc_cost(antelope_lm, quantity_abate = 98.70)
 ventura_cost_b_4 &lt;- calc_cost(ventura_lm, quantity_abate = 158.83)
 
 total_cost_b_4 &lt;- kern_cost_b_4 + mojave_cost_b_4 + antelope_cost_b_4 + ventura_cost_b_4</code></pre>
-<p>Total abatement cost with tax is: 6.4184054^{4}</p>
-<p>Kern abatement cost with tax is: 1.7405121^{4}</p>
-<p>Mojave abatement cost with tax is: 1.0457704^{4}</p>
-<p>Antelope abatement cost with tax is: 1.3919126^{4}</p>
-<p>Ventura abatement cost with tax is: 2.2402104^{4}</p>
-<p>Next we calculue the government revenue</p>
+<p>Total cost of abatement with tax is: 6.4184054^{4}</p>
+<p>Kern cost of abatement with tax is: 1.7405121^{4}</p>
+<p>Mojave cost of abatement with tax is: 1.0457704^{4}</p>
+<p>Antelope cost of abatement with tax is: 1.3919126^{4}</p>
+<p>Ventura cost of abatement with tax is: 2.2402104^{4}</p>
+<p>However, in order to get the total cost incurred to each of the districts, we need to find how much they are paying the government for the water rights.</p>
+<p>So, Next we calculue the government revenue</p>
 <pre class="r"><code>#calculate the revenue for tax 2
 tax2 = 282.08
 
@@ -768,6 +777,13 @@ total_tax_revenue_4 &lt;- revnue_kern_4 + revnue_antelope_4 + revnue_ventura_4 +
 total_quantity_used_4 = 300
 total_tax_revenue2_4 = total_quantity_used_4*tax2</code></pre>
 <p>Total government revenue generated from tax: $7.8251388^{4}</p>
+<p>Total cost under a tax:</p>
+<p>To get this, we add cost of abatemnt under a tax and the amount they pay the government (revenue)</p>
+<p>Cost of abatement with tax is: 1.4878831^{5}</p>
+<p>Kern abatement cost with tax is: 2.209047^{4}</p>
+<p>Mojave abatement cost with tax is: 3.1853472^{4}</p>
+<p>Antelope abatement cost with tax is: 4.813543^{4}</p>
+<p>Ventura abatement cost with tax is: 4.6708937^{4}</p>
 <p><strong>c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).</strong></p>
 <p>For Cap and Trade, we set the initial Q values for each of the four districts so that it is the same as in part (a) so Kern abates 89.85 AF, Mojave abates 83.86 AF, Antelope abates 131.78 AF, and Ventura abates 146.76 AF. However because trading is allowed, the districts will buy and sell their water rights, to reach the socially optimal point which is what we found under part b. Therefore in the end, Kern abates 123.39 AF, Mojave abates 74.15 AF, Antelope abates 98.70 AF, and Ventura abates 158.83 AF.</p>
 <p>However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the original cap. This is calculated below:</p>

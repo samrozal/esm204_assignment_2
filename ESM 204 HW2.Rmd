@@ -487,15 +487,17 @@ ventura_cost_b <- calc_cost(ventura_lm, quantity_abate = 89.01)
 total_cost_b <- kern_cost_b + mojave_cost_b + antelope_cost_b + ventura_cost_b
 
 ```
-Total abatement cost with tax is: `r total_cost_b`
+Cost of abatement with tax is: `r total_cost_b`
 
-Kern abatement cost with tax is: `r kern_cost_b`
+Kern cost of abatement cost with tax is: `r kern_cost_b`
 
-Mojave abatement cost with tax is: `r mojave_cost_b`
+Mojave cost of abatement with tax is: `r mojave_cost_b`
 
-Antelope abatement cost with tax is: `r antelope_cost_b`
+Antelope cost of abatement with tax is: `r antelope_cost_b`
 
-Ventura abatement cost with tax is: `r ventura_cost_b`
+Ventura cost of abatement with tax is: `r ventura_cost_b`
+
+However, in order to get the total cost incurred to each of the districts, we need to find how much they are paying the government for the water rights.
 
 Stringency (magnitude of the tax) is: $158.09 
 
@@ -525,6 +527,19 @@ total_tax_revenue2 = total_quantity_used*tax1
 ```
 Total government revenue generated from tax: $`r total_tax_revenue`
 
+Total cost under a tax:
+
+To get this, we add cost of abatemnt under a tax and the amount they pay the government (revenue)
+
+Cost of abatement with tax is: `r total_cost_b + total_tax_revenue`
+
+Kern abatement cost with tax is: `r kern_cost_b + revnue_kern`
+
+Mojave abatement cost with tax is: `r mojave_cost_b + revnue_mojave`
+
+Antelope abatement cost with tax is: `r antelope_cost_b + revnue_antelope`
+
+Ventura abatement cost with tax is: `r ventura_cost_b + revnue_ventura`
 
 **c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).**
 
@@ -765,17 +780,19 @@ total_cost_b_4 <- kern_cost_b_4 + mojave_cost_b_4 + antelope_cost_b_4 + ventura_
 
 ```
 
-Total abatement cost with tax is: `r total_cost_b_4`
+Total cost of abatement with tax is: `r total_cost_b_4`
 
-Kern abatement cost with tax is: `r kern_cost_b_4`
+Kern cost of abatement with tax is: `r kern_cost_b_4`
 
-Mojave abatement cost with tax is: `r mojave_cost_b_4`
+Mojave cost of abatement with tax is: `r mojave_cost_b_4`
 
-Antelope abatement cost with tax is: `r antelope_cost_b_4`
+Antelope cost of abatement with tax is: `r antelope_cost_b_4`
 
-Ventura abatement cost with tax is: `r ventura_cost_b_4`
+Ventura cost of abatement with tax is: `r ventura_cost_b_4`
 
-Next we calculue the government revenue
+However, in order to get the total cost incurred to each of the districts, we need to find how much they are paying the government for the water rights.
+
+So, Next we calculue the government revenue
 
 ```{r}
 #calculate the revenue for tax 2
@@ -800,7 +817,22 @@ total_tax_revenue_4 <- revnue_kern_4 + revnue_antelope_4 + revnue_ventura_4 + re
 total_quantity_used_4 = 300
 total_tax_revenue2_4 = total_quantity_used_4*tax2
 ```
+
 Total government revenue generated from tax: $`r total_tax_revenue`
+
+Total cost under a tax:
+
+To get this, we add cost of abatemnt under a tax and the amount they pay the government (revenue)
+
+Cost of abatement with tax is: `r total_cost_b_4 + total_tax_revenue_4`
+
+Kern abatement cost with tax is: `r kern_cost_b_4 + revnue_kern_4`
+
+Mojave abatement cost with tax is: `r mojave_cost_b_4 + revnue_mojave_4`
+
+Antelope abatement cost with tax is: `r antelope_cost_b_4 + revnue_antelope_4`
+
+Ventura abatement cost with tax is: `r ventura_cost_b_4 + revnue_ventura_4`
 
 **c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).**
 
