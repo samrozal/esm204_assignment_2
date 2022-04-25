@@ -308,40 +308,53 @@ ggplot(data=joined_demand, aes(x=water_demand, y=predicted_mc))+
 
 Antelope irrigation district is willing to pay the most for the first acre-foot of water. 
 
-## How to Solve 3A
+## Number 3
 Here you will analyze three alternative policies for reducing water use among these irrigation districts.In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: (1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, (2) calculate the total cost of meeting the target using that approach, (3) calculate the cost to each district, and (4) calculate the tax revenue generated.
 
-a. Cap without trade. Reduce each district’s water use by the same fraction (e.g., 1/3 of current baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the magnitude of the fraction.
+a.Cap without trade. Reduce each district’s water use by the same fraction (e.g., 1/3 of current baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the magnitude of the fraction.
 
-- Using the baseline in each of the four cities, I set up an equation where the same fraction for each city times each city's baseline sums to 225. (225 is the amount of abatement that is needed (755-500))
-- p*150 + p*145 + p*220 + p*245 = 255
-- p = 0.338
-- Each city will reduce their water usage by 0.338 to achieve the policy [0.338 stringency]
-- No tax revenue generated
+ - Using the baseline in each of the four cities, I set up an equation where the same fraction for each city times each city's baseline sums to 225. (225 is the amount of abatement that is needed (755-500))
+
+ - p*150 + p*145 + p*220 + p*245 = 255
+ - p = 0.338
+ 
+ - Each city will reduce their water usage by 0.338 to achieve the policy [0.338 stringency]
+ 
+ - No tax revenue generated
 
 Kern county:
-Abatement = baseline x 0.338
-Abatement = 150 X 0.338
-Abatement = 50.7
+
+ - Abatement = baseline x 0.338
+ 
+ - Abatement = 150 X 0.338
+ 
+ - Abatement = 50.7
 
 Mojave County:
-Abatement = baseline x 0.338
-Abatement = 140 X 0.338
-Abatement = 47.32
+
+- Abatement = baseline x 0.338
+
+- Abatement = 140 X 0.338
+
+- Abatement = 47.32
 
 Antelope County:
-Abatement = baseline x 0.338
-Abatement = 220 X 0.338
-Abatement = 74.36
+
+- Abatement = baseline x 0.338
+
+- Abatement = 220 X 0.338
+
+- Abatement = 74.36
 
 Ventura County:
-Abatement = baseline x 0.338
-Abatement = 245 X 0.338
-Abatement = 82.81
+
+- Abatement = baseline x 0.338
+
+- Abatement = 245 X 0.338
+
+- Abatement = 82.81
 
 ```{r}
-quantity_abate = 50
-
 #defining function
 calc_cost <- function(lm_mod, quantity_abate){
   estimated_cost = lm_mod$coefficients[1]*quantity_abate
@@ -358,19 +371,17 @@ antelope_cost <- calc_cost(antelope_lm, quantity_abate = 74.36)
 
 ventura_cost <- calc_cost(ventura_lm, quantity_abate = 82.81)
 
-kern_cost
-mojave_cost
-antelope_cost
-ventura_cost
-
 total_cost <- kern_cost + mojave_cost + antelope_cost + ventura_cost
-total_cost
 
 ```
 Total cost is: `r total_cost`
+
 Kern abatement cost is: `r kern_cost`
+
 Mojave abatement cost is: `r mojave_cost`
+
 Antelope abatement cost is: `r antelope_cost`
+
 Ventura abatement cost is: `r ventura_cost`
 
 b. Tax on water use. A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
@@ -378,48 +389,75 @@ b. Tax on water use. A single tax is implemented on all water use in each of the
 To calculate the tax, I first need to find the Aggregated Marginal Cost equation. 
 - This is done by first converting all of my marginal cost equations to solve for the Q variable because I will be horizontally summing and the Q value is the X value. 
 
-Kern County : P=2.286Q
+Kern County : 
+
+- P=2.286Q
+
 - Q(kern) = (1/2.286)P
 
-Mojave County: P=3.804Q
+Mojave County: 
+
+- P=3.804Q
+
 - Q(mojave) = (1/3.804)P
 
-Antelope County: P=2.858Q
+Antelope County: 
+
+- P=2.858Q
+
 - Q(antelope) = (1/2.858)P
 
-Ventura County: P=1.776Q
+Ventura County: 
+
+- P=1.776Q
+
 - Q(ventura) = (1/1.776)P
 
-Q(agg) = Q(kern) + Q(mojave) + Q(antelope) + Q(ventura)
-Q(agg) = (1/2.286)P + (1/3.804)P + (1/2.858)P + (1/1.776)P
-Q(agg) = 1.613(P)
+Now we add everything up to get the Q(agg)
 
-Now, to find P* at the Q* value, I plug in 255 as Qagg, because this is the amount of abatement that we want and then solve for P
+- Q(agg) = Q(kern) + Q(mojave) + Q(antelope) + Q(ventura)
 
-255 = 1.613(P)
-P = 158.09
-P* = 158.09
+- Q(agg) = (1/2.286)P + (1/3.804)P + (1/2.858)P + (1/1.776)P
+
+- Q(agg) = 1.613(P)
+
+Now, to find P* at the Q* value, we plug in 255 as Qagg, because this is the amount of abatement that we want and then solve for P
+
+- 255 = 1.613(P)
+
+- P = 158.09
+
+- P* = 158.09
 
 Now, we need to calculate the Q value (quantity abated) associated with this P for each district/county's marginal demand curve. To do this, we plug in P = 158.062 into each of the marginal cost curves. 
 
 
 Kern County :
+
 - Q(kern) = (1/2.286)(158.09)
+
 - Q(kern) = 69.14
 
 Mojave County: P=3.804Q
+
 - Q(mojave) = (1/3.804)(158.09)
+
 - Q(mojave) = 41.56
 
 Antelope County: P=2.858Q
+
 - Q(antelope) = (1/2.858)(158.09)
+
 - Q(antelope) = 55.31
 
 Ventura County: P=1.776Q
+
 - Q(ventura) = (1/1.776)(158.09)
+
 - Q(ventura) = 89.01
 
 ```{r}
+#caluclate the cost 
 kern_cost_b <- calc_cost(kern_lm, quantity_abate = 69.14)
 
 mojave_cost_b <- calc_cost(mojave_lm, quantity_abate = 41.56)
@@ -428,19 +466,17 @@ antelope_cost_b <- calc_cost(antelope_lm, quantity_abate = 55.31)
 
 ventura_cost_b <- calc_cost(ventura_lm, quantity_abate = 89.01)
 
-kern_cost_b
-mojave_cost_b
-antelope_cost_b
-ventura_cost_b
-
 total_cost_b <- kern_cost_b + mojave_cost_b + antelope_cost_b + ventura_cost_b
-total_cost_b
 
 ```
 Total abatement cost with tax is: `r total_cost_b`
+
 Kern abatement cost with tax is: `r kern_cost_b`
+
 Mojave abatement cost with tax is: `r mojave_cost_b`
+
 Antelope abatement cost with tax is: `r antelope_cost_b`
+
 Ventura abatement cost with tax is: `r ventura_cost_b`
 
 Stringency (magnitude of the tax) is: $158.09 
@@ -460,10 +496,6 @@ revnue_mojave <- calc_revenue(tax1, baseline=150,quantity_abate=41.56)
 revnue_antelope <- calc_revenue(tax1, baseline=220,quantity_abate=55.31)
 revnue_ventura <- calc_revenue(tax1, baseline=240,quantity_abate=89.01)
 
-revnue_kern 
-revnue_mojave 
-revnue_antelope 
-revnue_ventura 
 
 total_tax_revenue <- revnue_kern + revnue_antelope + revnue_ventura + revnue_mojave
 total_tax_revenue
@@ -471,38 +503,19 @@ total_tax_revenue
 #tax is on the amount of water used! 
 total_quantity_used = 500
 total_tax_revenue2 = total_quantity_used*tax1
-total_tax_revenue2
+
 ```
 Total government revenue generated from tax: $`r total_tax_revenue`
 
 
 c. Cap and trade. Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
-
 For Cap and Trade, we set the initial Q values for each of the four districts so that it is the same as in part (a) so Kern abates 50.07 AF, Mojave abates 47.32 AF, Antelope abates 74.36 AF, and Ventura abates 82.81 AF. However because trading is allowed, the districts will buy and sell their water rights, to reach the socially optimal point which is what we found under part b. Therefore in the end, Kern abates 69.14 AF, Mojave abates 41.56 AF, Antelope abates 55.31 AF, and Ventura abates 89.01 AF.
 
-The cost therefore, should be the same as in part b
-
-
-```{r}
-kern_cost_b <- calc_cost(kern_lm, quantity_abate = 69.14)
-
-mojave_cost_b <- calc_cost(mojave_lm, quantity_abate = 41.56)
-
-antelope_cost_b <- calc_cost(antelope_lm, quantity_abate = 55.31)
-
-ventura_cost_b <- calc_cost(ventura_lm, quantity_abate = 89.01)
-
-kern_cost_b
-mojave_cost_b
-antelope_cost_b
-ventura_cost_b
-```
-
-However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the original cap. This is calculated below:
+However there is the additional benefit that each district will get due to either revenue that they get from selling, or from getting to use more water than they would have under the original cap that needs to be accounted for to calculate total cost for each district. This is calculated below:
 
 ```{r}
-#find the estimated q value both before and after trade
+#find the estimated p value both before and after trade
 estimated_cost <- function(lm_mod, quantity_abate){
   (estimated_cost = lm_mod$coefficients[1]*quantity_abate)
   return(estimated_cost)
@@ -520,17 +533,10 @@ antelope_after_trade <-estimated_cost(antelope_lm,55.31)
 ventura_before_trade <-estimated_cost(ventura_lm,82.81)
 ventura_after_trade <-estimated_cost(ventura_lm,89.01)
 
-kern_before_trade
-kern_after_trade
-mojave_before_trade
-mojave_after_trade
-antelope_before_trade
-antelope_after_trade
-ventura_before_trade
-ventura_after_trade
 ```
 
 ```{r}
+#function to get additional benefit(its essentially the area of a triangle)
 additional_benefit <- function(p_before_trade,p_after_trade,q_before_trade,q_after_trade){
   (additional_benefit =(0.5)*(p_before_trade-p_after_trade)*(q_before_trade-q_after_trade))
   return(additional_benefit)
@@ -541,13 +547,9 @@ additional_benefit_mojave <- additional_benefit(mojave_before_trade, mojave_afte
 additional_benefit_antelope <- additional_benefit(antelope_before_trade, antelope_after_trade,74.36,55.31)
 additional_benefit_ventura <- additional_benefit(ventura_before_trade, ventura_after_trade,82.81,89.01)
 
-additional_benefit_kern
-additional_benefit_mojave
-additional_benefit_antelope
-additional_benefit_ventura
 ```
-Now we can get the total cost by subtracting the cost we got in a, minus the additional benefit.
 
+Now we can get the total cost by subtracting the cost we got in a, minus the additional benefit.
 
 ```{r}
 #kern county cost:
@@ -559,14 +561,10 @@ total_cost_antelope <- antelope_cost - additional_benefit_antelope
 
 total_cost_ventura <- ventura_cost - additional_benefit_ventura
 
-total_cost_kern
-total_cost_mojave
-total_cost_antelope
-total_cost_ventura
 
 total_cost_all <- total_cost_kern + total_cost_mojave + total_cost_antelope + total_cost_ventura
-total_cost_all
 ```
+
 Stringency is the same as in part 1:  0.338
 
 Total cost under cap and trade is: $ `r total_cost_all`
@@ -580,36 +578,6 @@ Total cost under cap and trade for Antelope is: $ `r total_cost_antelope`
 Total cost under cap and trade for Ventura is: $ `r total_cost_ventura`
 
 No Tax revenue is generated under cap and trade 
-
-```{r}
-#calculate by hand
-#baseline = c(150, 140, 220, 245)
-
-#a single fraction multiplied by these numbers that sum to 755-500 = 225
-
-#deductions <- function(p) {p*150+p*145+p*220+p*245 = 255}
-#p= 0.338
-#solve(deductions)
-```
-
-```{r}
-#A function to compute the costs for a district's abatement given the abatement number
-quantity_abate = 50
-lm_mod=kern_lm
-
-#defining function
-calc_cost <- function(lm_mod, quantity_abate){
-  estimated_cost = lm_mod$coefficients[1]*quantity_abate
-  total_cost = 0.5 * quantity_abate * estimated_cost
-  return(total_cost[[1]])
-}
-
-#what is the total cost of kern were to abate 117 unit?
-calc_cost(kern_lm, quantity_abate = 117)
-
-#Q3a Kern abated
-calc_cost(kern_lm, quantity_abate = 50.7)
-```
 
 # Number 4
 A severe drought hits California, and it is necessary to reduce water use from 500 AF down to 300 AF. Your job is to estimate the cost of the drought (i.e., the cost of reducing water use from 500 AF to 300 AF) to each irrigation district under each policy. Considering the entire jump from status quo (755 AF) to the drought (300 AF), which policy is preferred by each irrigation district? How does your answer depend on how rights are allocated to each district (in policies (a) and (c))2?
